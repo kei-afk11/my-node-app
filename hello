@@ -1,0 +1,15 @@
+const http = require("http");
+const fs = require("fs").promises;
+const url = require('url');
+
+const my_data_path = __dirname + "/mydata";
+fs.access(my_data_path).catch((e)=>{
+  fs.mkdir(my_data_path);
+});
+
+http.createServer(async (rq,rs)=>{
+const parsedURL = url.parse(rq.url, true);
+  rs.setHeader("content-type","text/html; charset=UTF-8");
+  rs.write('こんにちは');
+  rs.end();
+}).listen(process.env.PORT);
